@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reference Data - MIS to XML Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --success-color: #198754;
+            --info-color: #0dcaf0;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+        
+        .search-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .reference-table {
+            margin-bottom: 2rem;
+        }
+        
+        .reference-table th {
+            background-color: var(--info-color);
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 12px;
+        }
+        
+        .reference-table td {
+            padding: 10px 12px;
+            border-top: 1px solid #dee2e6;
+            vertical-align: middle;
+            font-size: 0.9rem;
+        }
+        
+        .reference-table tbody tr:hover {
+            background-color: #f0fff4;
+        }
+        
+        .breadcrumb {
+            background: none;
+            padding: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .breadcrumb-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item a:hover {
+            text-decoration: underline;
+        }
+        
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        .filter-buttons {
+            margin-bottom: 1rem;
+        }
+        
+        .filter-btn {
+            background: #e9ecef;
+            border: 1px solid #ced4da;
+            color: #495057;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .filter-btn:hover {
+            background: #dee2e6;
+        }
+        
+        .filter-btn.active {
+            background: var(--info-color);
+            color: white;
+            border-color: var(--info-color);
+        }
+        
+        .table-container {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .reference-section {
+            margin-bottom: 2rem;
+        }
+        
+        .reference-title {
+            background: linear-gradient(135deg, #e6fffa, #b2f5ea);
+            color: #2d3748;
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid var(--info-color);
+            margin-bottom: 1rem;
+        }
+        
+        .record-count {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .active-badge {
+            background: var(--success-color);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        footer {
+            background: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">MIS to XML Reference</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="job-fields.html">Job Fields</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jobpart-fields.html">JobPart Fields</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="materials.html">Materials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="operations.html">Operations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="reference-data.html">Reference Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="validation.html">Validation</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Reference Data</li>
+            </ol>
+        </nav>
+
+        <!-- Search Section -->
+        <div class="search-container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="h3 mb-3">Reference Data</h1>
+                    <p class="text-muted mb-3">Complete lookup tables and validation data for all MIS field options</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="globalSearch" placeholder="Search across all reference data...">
+                        <button class="btn btn-outline-primary" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-4 text-end">
+                    <div class="btn-group" role="group">
+                        <a href="operations.html" class="btn btn-outline-secondary">Previous</a>
+                        <a href="validation.html" class="btn btn-outline-primary">Next: Validation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reference Data Container -->
+        <div id="referenceDataContainer">
+            <!-- Job Types -->
+            <div class="content-card reference-section" id="jobtype">
+                <h3 class="reference-title">Job Types <span class="record-count">3 records</span></h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterTable('JobType', 'all')">All (3)</button>
+                    <button class="filter-btn" onclick="filterTable('JobType', 'active')">Active Only</button>
+                </div>
+                <div class="table-container">
+                    <table class="table reference-table" id="table-JobType">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Description</th>
+                                <th>Bag Type</th>
+                                <th>Active</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Printing Job</td>
+                                <td>Printing</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>Finished Goods Job</td>
+                                <td>Finished Goods</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>5001</td>
+                                <td>Auto Close Job</td>
+                                <td>Printing</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Job Status -->
+            <div class="content-card reference-section" id="jobstatus">
+                <h3 class="reference-title">Job Status Codes <span class="record-count">9+ records</span></h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterTable('JobStatus', 'all')">All</button>
+                    <button class="filter-btn" onclick="filterTable('JobStatus', 'active')">Active Only</button>
+                    <button class="filter-btn" onclick="filterTable('JobStatus', 'production')">In Production</button>
+                </div>
+                <div class="table-container">
+                    <table class="table reference-table" id="table-JobStatus">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Description</th>
+                                <th>Open Job</th>
+                                <th>In Production</th>
+                                <th>Active</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>!</td>
+                                <td>01.5 On Hold</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>O</td>
+                                <td>01 Open</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>£</td>
+                                <td>02.5 Pro Forma</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>I</td>
+                                <td>06.5 Imp 2 Print</td>
+                                <td>Yes</td>
+                                <td>No</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>P</td>
+                                <td>03 In Production</td>
+                                <td>Yes</td>
+                                <td>Yes</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>B</td>
+                                <td>04 Bindery</td>
+                                <td>Yes</td>
+                                <td>Yes</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>S</td>
+                                <td>05 Shipped</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>X</td>
+                                <td>07 Cancelled</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>C</td>
+                                <td>06 Complete</td>
+                                <td>No</td>
+                                <td>No</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-muted small">Showing sample records. Full dataset contains 57 status codes.</p>
+            </div>
+
+            <!-- Binding Methods -->
+            <div class="content-card reference-section" id="bindingmethod">
+                <h3 class="reference-title">Binding Methods <span class="record-count">10+ records</span></h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterTable('BindingMethod', 'all')">All</button>
+                    <button class="filter-btn" onclick="filterTable('BindingMethod', 'active')">Active Only</button>
+                </div>
+                <div class="table-container">
+                    <table class="table reference-table" id="table-BindingMethod">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Description</th>
+                                <th>Active</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>5163</td>
+                                <td>Board Cut, Cloth Cut, DA270, PE80</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>5160</td>
+                                <td>Board Cutting</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>5189</td>
+                                <td>Board Pick/Cut, Cloth, DA270, PE80</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>5165</td>
+                                <td>Burst/Collate 2up, Cut</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>5151</td>
+                                <td>Case Bound</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>5152</td>
+                                <td>Case Bound Flush</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>5153</td>
+                                <td>Case Bound Set Back</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>5166</td>
+                                <td>Collate 2up</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>5164</td>
+                                <td>Cut</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>5197</td>
+                                <td>Cut, BQ Burst</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-muted small">Showing sample records. Full dataset contains 104 binding methods.</p>
+            </div>
+
+            <!-- Fold Patterns -->
+            <div class="content-card reference-section" id="foldpattern">
+                <h3 class="reference-title">Fold Patterns <span class="record-count">10+ records</span></h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterTable('FoldPattern', 'all')">All</button>
+                    <button class="filter-btn" onclick="filterTable('FoldPattern', 'active')">Active Only</button>
+                    <button class="filter-btn" onclick="filterTable('FoldPattern', 'sewn')">Sewn Category</button>
+                </div>
+                <div class="table-container">
+                    <table class="table reference-table" id="table-FoldPattern">
+                        <thead>
+                            <tr>
+                                <th>Pages</th>
+                                <th>Pattern #</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Active</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2</td>
+                                <td>1</td>
+                                <td>Flat Sheet (no bleed)</td>
+                                <td>-</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>2</td>
+                                <td>Flat Sheet (3mm Trim)</td>
+                                <td>-</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>2pp (3mm Trim)</td>
+                                <td>Sewn</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>11</td>
+                                <td>Half Fold</td>
+                                <td>-</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>12</td>
+                                <td>Half Fold (3mm Trim)</td>
+                                <td>-</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>21</td>
+                                <td>Z Fold</td>
+                                <td>-</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>31</td>
+                                <td>Letter Fold</td>
+                                <td>-</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>32</td>
+                                <td>Roll Fold</td>
+                                <td>-</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>16</td>
+                                <td>41</td>
+                                <td>Signature</td>
+                                <td>Sewn</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>32</td>
+                                <td>51</td>
+                                <td>Signature</td>
+                                <td>Sewn</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-muted small">Showing sample records. Full dataset contains 86 fold patterns.</p>
+            </div>
+
+            <!-- Prepress Workflows -->
+            <div class="content-card reference-section" id="prepressworkflow">
+                <h3 class="reference-title">Prepress Workflows <span class="record-count">14 records</span></h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterTable('PrepressWorkflow', 'all')">All (14)</button>
+                    <button class="filter-btn" onclick="filterTable('PrepressWorkflow', 'digital')">Digital</button>
+                    <button class="filter-btn" onclick="filterTable('PrepressWorkflow', 'litho')">Litho</button>
+                </div>
+                <div class="table-container">
+                    <table class="table reference-table" id="table-PrepressWorkflow">
+                        <thead>
+                            <tr>
+                                <th>Material Provided</th>
+                                <th>Prep Method</th>
+                                <th>Prep Bindery Only</th>
+                                <th>Active</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>File</td>
+                                <td>Prepress Only</td>
+                                <td>Prep Only</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>File</td>
+                                <td>Finishing Only</td>
+                                <td>Normal</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>File</td>
+                                <td>Digital</td>
+                                <td>Normal</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>File</td>
+                                <td>No Approval Required Digital</td>
+                                <td>Normal</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>File</td>
+                                <td>Litho</td>
+                                <td>Normal</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>File</td>
+                                <td>No Approval Required Litho</td>
+                                <td>Normal</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>Film</td>
+                                <td>Film to Plate</td>
+                                <td>Normal</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>Plate</td>
+                                <td>Plate Supplied</td>
+                                <td>Normal</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>File</td>
+                                <td>Proof Required Digital</td>
+                                <td>Normal</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>File</td>
+                                <td>Proof Required Litho</td>
+                                <td>Normal</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>File</td>
+                                <td>Customer Proof Required</td>
+                                <td>Normal</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>File</td>
+                                <td>Full Service Digital</td>
+                                <td>Normal</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>File</td>
+                                <td>Full Service Litho</td>
+                                <td>Normal</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>File</td>
+                                <td>Prepress and Bindery Only</td>
+                                <td>Prep Only</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Job Product Types -->
+            <div class="content-card reference-section" id="jobproducttype">
+                <h3 class="reference-title">Job Product Types <span class="record-count">10+ records</span></h3>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterTable('JobProductType', 'all')">All</button>
+                    <button class="filter-btn" onclick="filterTable('JobProductType', 'active')">Active Only</button>
+                    <button class="filter-btn" onclick="filterTable('JobProductType', 'cased')">Cased</button>
+                    <button class="filter-btn" onclick="filterTable('JobProductType', 'limp')">Limp</button>
+                </div>
+                <div class="table-container">
+                    <table class="table reference-table" id="table-JobProductType">
+                        <thead>
+                            <tr>
+                                <th>Product Type ID</th>
+                                <th>Description</th>
+                                <th>Finishing Workflow</th>
+                                <th>Press</th>
+                                <th>Colors</th>
+                                <th>Active</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>02CAN1UC</td>
+                                <td>2pp 1/1 Cut and Stack Cased</td>
+                                <td>Cut, Vareo 3, BF513</td>
+                                <td>Titan 6330</td>
+                                <td>1</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>02CAN1UF</td>
+                                <td>2pp 1/1 Cut and Stack 8pp Cover</td>
+                                <td>Cut, Vareo 3, Foredge 8pp</td>
+                                <td>Titan 6330</td>
+                                <td>1</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>02CAN1UN</td>
+                                <td>2pp 1/1 Cut and Stack Limp</td>
+                                <td>Cut, Split, Vareo 3</td>
+                                <td>Titan 6330</td>
+                                <td>1</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>04CAN1UC</td>
+                                <td>4pp 1/1 Half Fold Cased</td>
+                                <td>Half Fold, Vareo 3, BF513</td>
+                                <td>Titan 6330</td>
+                                <td>1</td>
+                                <td><span class="active-badge">Active</span></td>
+                            </tr>
+                            <tr>
+                                <td>06CAN1UC</td>
+                                <td>6pp 1/1 Z Fold Cased</td>
+                                <td>Z Fold, Vareo 3, BF513</td>
+                                <td>Titan 6330</td>
+                                <td>1</td>
+                                <td><span class="active-badge">Active</span>

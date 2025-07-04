@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobPart Fields - MIS to XML Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --success-color: #198754;
+            --info-color: #0dcaf0;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+        
+        .search-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .mapping-table {
+            margin-bottom: 2rem;
+        }
+        
+        .mapping-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 12px;
+        }
+        
+        .mapping-table td {
+            padding: 12px;
+            border-top: 1px solid #dee2e6;
+            vertical-align: middle;
+        }
+        
+        .mapping-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .xml-element {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: var(--primary-color);
+            border: 1px solid #e9ecef;
+        }
+        
+        .field-type {
+            background: var(--warning-color);
+            color: #212529;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .status-found {
+            background: var(--success-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .breadcrumb {
+            background: none;
+            padding: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .breadcrumb-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item a:hover {
+            text-decoration: underline;
+        }
+        
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        .nav-pills .nav-link.active {
+            background-color: var(--primary-color);
+        }
+        
+        .nav-pills .nav-link {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            background: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">MIS to XML Reference</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="job-fields.html">Job Fields</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="jobpart-fields.html">JobPart Fields</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="materials.html">Materials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="operations.html">Operations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="reference-data.html">Reference Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="validation.html">Validation</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">JobPart Level Fields</li>
+            </ol>
+        </nav>
+
+        <!-- Search Section -->
+        <div class="search-container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="h3 mb-3">JobPart Level Fields</h1>
+                    <p class="text-muted mb-3">XML field mappings for JobPart-level specifications including production details, sizes, colors, and workflows</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="pageSearch" placeholder="Search JobPart fields...">
+                        <button class="btn btn-outline-primary" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-4 text-end">
+                    <div class="btn-group" role="group">
+                        <a href="job-fields.html" class="btn btn-outline-secondary">Previous</a>
+                        <a href="materials.html" class="btn btn-outline-primary">Next: Materials</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Navigation -->
+        <div class="content-card">
+            <ul class="nav nav-pills" id="sectionTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#core-fields">Core JobPart Fields</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#production-specs">Production Specifications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#size-color">Size & Color Specifications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#workflow-specs">Workflow Specifications</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Core JobPart Fields -->
+        <div class="content-card" id="core-fields">
+            <h2 class="section-title">Core JobPart Fields</h2>
+            <div class="table-responsive">
+                <table class="table mapping-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">XML Element</th>
+                            <th style="width: 30%;">MIS Field Name</th>
+                            <th style="width: 10%;">Type</th>
+                            <th style="width: 10%;">Status</th>
+                            <th style="width: 30%;">Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="xml-element">&lt;jobPart&gt;</span></td>
+                            <td>jobPart</td>
+                            <td><span class="field-type">hidden</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td>Part number (2-digit format with leading zero, e.g., "06")</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;jobProduct&gt;</span></td>
+                            <td>JobPart_N1002F.jobProduct2</td>
+                            <td><span class="field-type">select</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td>Product assignment (e.g., Henry's Roses (42539))</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;productionStatus&gt;</span></td>
+                            <td>JobPart_N1002F.productionStatus</td>
+                            <td><span class="field-type">select</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td>Production status (e.g., I: 06.5 Imp 2 Print)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;description&gt;</span></td>
+                            <td>JobPart_N1002F.description</td>
+                            <td><span class="field-type">text</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td>JobPart description</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;lastActCode&gt;</span></td>
+                            <td>JobPart_N1002F.lastActCode</td>
+                            <td><span class="field-type">select</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td>Last activity code (452 options available)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;qtyOrdered&gt;</span></td>
+                            <td>qtyOrderedHeader</td>
+                            <td><span class="field-type">text</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td><strong>Key field found in table header - Quantity ordered</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Production Specifications -->
+        <div class="content-card" id="production-specs">
+            <h2 class="section-title">Production Specifications</h2>
+            <div class="table-responsive">
+                <table class="table mapping-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">XML Element</th>
+                            <th style="width: 25%;">MIS Field Name</th>
+                            <th style="width: 10%;">Type</th>
+                            <th style="width: 10%;">Status</th>
+                            <th style="width: 35%;">Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="xml-element">&lt;jobProductType&gt;</span></td>
+                            <td>jobProductType</td>
+                            <td><span class="field-type">select</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td>Product type classification (108 product type options available)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;numSigs&gt;</span></td>
+                            <td>numSigs</td>
+                            <td><span class="field-type">text</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td><strong>Number of signatures for production</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;pages&gt;</span></td>
+                            <td>numPages</td>
+                            <td><span class="field-type">text</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td>Total page count for the job part</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;foldPattern&gt;</span></td>
+                            <td>foldPattern</td>
+                            <td><span class="field-type">select</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td>Folding pattern specification (86 fold pattern options available)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;foldPatternDesc&gt;</span></td>
+                            <td>foldPatternDesc</td>
+                            <td><span class="field-type">text</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td>Description of the fold pattern</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Size & Color Specifications -->
+        <div class="content-card" id="size-color">
+            <h2 class="section-title">Size & Color Specifications</h2>
+            <div class="table-responsive">
+                <table class="table mapping-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">XML Element</th>
+                            <th style="width: 25%;">MIS Field Name</th>
+                            <th style="width: 10%;">Type</th>
+                            <th style="width: 10%;">Status</th>
+                            <th style="width: 35%;">Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="xml-element">&lt;finalSizeW&gt;</span></td>
+                            <td>finalSize</td>
+                            <td><span class="field-type">text</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td><strong>Final width dimension specification</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;finalSizeH&gt;</span></td>
+                            <td>finalSize</td>
+                            <td><span class="field-type">text</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td><strong>Final height dimension specification</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;flatSize&gt;</span></td>
+                            <td>flatSize</td>
+                            <td><span class="field-type">text</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td>Flat size specification before folding</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;trimSize&gt;</span></td>
+                            <td>trimSize</td>
+                            <td><span class="field-type">text</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td>Trim size specification for cutting</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;colorsS1&gt;</span></td>
+                            <td>colorsS1</td>
+                            <td><span class="field-type">text</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td><strong>Colors for side 1 printing</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;colorsS2&gt;</span></td>
+                            <td>colorsS2</td>
+                            <td><span class="field-type">text</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td><strong>Colors for side 2 printing</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;colorsTotal&gt;</span></td>
+                            <td>colorsTotal</td>
+                            <td><span class="field-type">text</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td><strong>Total colors used in production</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Workflow Specifications -->
+        <div class="content-card" id="workflow-specs">
+            <h2 class="section-title">Workflow Specifications</h2>
+            <div class="table-responsive">
+                <table class="table mapping-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">XML Element</th>
+                            <th style="width: 25%;">MIS Field Name</th>
+                            <th style="width: 10%;">Type</th>
+                            <th style="width: 10%;">Status</th>
+                            <th style="width: 35%;">Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="xml-element">&lt;binderyMethod&gt;</span></td>
+                            <td>binderyMethod</td>
+                            <td><span class="field-type">select</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td><strong>Bindery method specification</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;prepressWorkflow&gt;</span></td>
+                            <td>prepressWorkflow</td>
+                            <td><span class="field-type">select</span></td>
+                            <td><span class="status-found">Found</span></td>
+                            <td>Prepress workflow specification (14 workflow options available)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Quick Reference Card -->
+        <div class="content-card">
+            <h3 class="text-primary mb-3">Quick Reference</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <h6>Key Production Fields</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>qtyOrdered</strong> - Quantity to produce</li>
+                        <li><strong>numSigs</strong> - Number of signatures</li>
+                        <li><strong>pages</strong> - Total page count</li>
+                        <li><strong>jobProductType</strong> - Product classification</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6>Size Specifications</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>finalSizeW/H</strong> - Final dimensions</li>
+                        <li><strong>flatSize</strong> - Flat sheet size</li>
+                        <li><strong>trimSize</strong> - Cutting dimensions</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6>Color & Workflow</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>colorsS1/S2</strong> - Side-specific colors</li>
+                        <li><strong>colorsTotal</strong> - Total color count</li>
+                        <li><strong>foldPattern</strong> - Folding specification</li>
+                        <li><strong>binderyMethod</strong> - Binding process</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="alert alert-info mt-3">
+                <strong>Note:</strong> JobPart fields define the specific production requirements for each part of a job. 
+                The numbering format uses two digits with leading zeros (01, 02, 03, etc.). Color specifications are critical 
+                for press setup and material requirements.
+            </div>
+        </div>
+
+        <!-- Reference Links -->
+        <div class="content-card">
+            <h3 class="text-primary mb-3">Related Reference Data</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Production References</h6>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="reference-data.html#jobproducttype" class="text-decoration-none">Job Product Types</a>
+                            <span class="badge bg-primary rounded-pill">108 options</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="reference-data.html#foldpattern" class="text-decoration-none">Fold Patterns</a>
+                            <span class="badge bg-primary rounded-pill">86 patterns</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="reference-data.html#prepressworkflow" class="text-decoration-none">Prepress Workflows</a>
+                            <span class="badge bg-primary rounded-pill">14 workflows</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h6>Validation Endpoints</h6>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <a href="http://192.168.10.251/epace/company:public/object/JobProductType/list" target="_blank" class="text-decoration-none">
+                                Job Product Type API <i class="fas fa-external-link-alt fa-sm"></i>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="http://192.168.10.251/epace/company:public/object/FoldPattern/list" target="_blank" class="text-decoration-none">
+                                Fold Pattern API <i class="fas fa-external-link-alt fa-sm"></i>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="http://192.168.10.251/epace/company:public/object/PrepressWorkflow/list" target="_blank" class="text-decoration-none">
+                                Prepress Workflow API <i class="fas fa-external-link-alt fa-sm"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="d-flex justify-content-between">
+            <a href="job-fields.html" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Previous: Job Fields
+            </a>
+            <a href="materials.html" class="btn btn-primary">
+                Next: Materials <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 MIS to XML Field Mapping Reference. JobPart Level Fields Documentation.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Page search functionality
+        document.getElementById('pageSearch').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const tables = document.querySelectorAll('.mapping-table tbody');
+            
+            tables.forEach(tbody => {
+                const rows = tbody.querySelectorAll('tr');
+                
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    let rowMatches = false;
+                    
+                    // Clear previous highlights
+                    cells.forEach(cell => {
+                        const xmlElement = cell.querySelector('.xml-element');
+                        const fieldType = cell.querySelector('.field-type');
+                        const statusFound = cell.querySelector('.status-found');
+                        
+                        if (!xmlElement && !fieldType && !statusFound) {
+                            cell.innerHTML = cell.textContent;
+                        }
+                    });
+                    
+                    if (searchTerm.trim() === '') {
+                        row.style.display = '';
+                        return;
+                    }
+                    
+                    cells.forEach(cell => {
+                        const cellText = cell.textContent.toLowerCase();
+                        if (cellText.includes(searchTerm)) {
+                            const xmlElement = cell.querySelector('.xml-element');
+                            const fieldType = cell.querySelector('.field-type');
+                            const statusFound = cell.querySelector('.status-found');
+                            
+                            if (!xmlElement && !fieldType && !statusFound) {
+                                const regex = new RegExp(`(${searchTerm})`, 'gi');
+                                cell.innerHTML = cell.textContent.replace(regex, '<span class="highlight">$1</span>');
+                            }
+                            rowMatches = true;
+                        }
+                    });
+                    
+                    row.style.display = rowMatches ? '' : 'none';
+                });
+            });
+        });
+        
+        // Section navigation
+        document.querySelectorAll('.nav-pills .nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-pills .nav-link').forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Scroll to target section
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

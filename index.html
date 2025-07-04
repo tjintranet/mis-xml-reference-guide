@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIS to XML Field Mapping Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --success-color: #198754;
+            --info-color: #0dcaf0;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+        
+        .search-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            height: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary-color), #0a58ca);
+            color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .section-card {
+            padding: 1.5rem;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-list strong {
+            color: var(--primary-color);
+        }
+        
+        .btn-custom {
+            background: var(--primary-color);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .btn-custom:hover {
+            background: #0a58ca;
+            transform: translateY(-1px);
+        }
+        
+        .external-links {
+            background: #e3f2fd;
+            border-left: 4px solid var(--info-color);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 2rem;
+        }
+        
+        .external-links h5 {
+            color: #0277bd;
+            margin-bottom: 1rem;
+        }
+        
+        .external-links a {
+            color: #0277bd;
+            text-decoration: none;
+            font-family: monospace;
+            word-break: break-all;
+        }
+        
+        .external-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .completion-badge {
+            background: var(--success-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        footer {
+            background: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">MIS to XML Reference</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="job-fields.html">Job Fields</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jobpart-fields.html">JobPart Fields</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="materials.html">Materials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="operations.html">Operations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="reference-data.html">Reference Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="validation.html">Validation</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Search Section -->
+        <div class="search-container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="h3 mb-3">MIS to XML Field Mapping Reference</h1>
+                    <p class="text-muted mb-3">Comprehensive documentation for creating XML documents from MIS form fields</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-lg" id="globalSearch" placeholder="Search across all fields, XML elements, or reference data...">
+                        <button class="btn btn-primary" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <p class="text-muted">Start typing to search. Results will be displayed on the Reference Data page.</p>
+                </div>
+        </div>
+
+        <!-- Statistics 
+        <div class="row mb-4">
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-card">
+                    <span class="stat-number">223</span>
+                    <span class="stat-label">Form Fields</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-card">
+                    <span class="stat-number">125+</span>
+                    <span class="stat-label">XML Mappings</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-card">
+                    <span class="stat-number">10+</span>
+                    <span class="stat-label">Categories</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="stat-card">
+                    <span class="stat-number">400+</span>
+                    <span class="stat-label">Reference Values</span>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- Main Navigation Cards -->
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body section-card">
+                        <h5 class="section-title">Job Level Fields</h5>
+                        <ul class="feature-list">
+                            <li><strong>Basic Info:</strong> customer, description, jobType</li>
+                            <li><strong>Dates:</strong> promiseDate, earliestStartDate</li>
+                            <li><strong>Custom Fields:</strong> U_BindingMethod, U_ProcessedBy</li>
+                            <li><strong>ISBN Fields:</strong> U_CasedISBN, U_LimpISBN</li>
+                        </ul>
+                        <a href="job-fields.html" class="btn btn-custom btn-sm w-100 mt-3">View Job Fields</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body section-card">
+                        <h5 class="section-title">JobPart Level Fields</h5>
+                        <ul class="feature-list">
+                            <li><strong>Production:</strong> jobProduct, productionStatus</li>
+                            <li><strong>Specifications:</strong> pages, foldPattern, colors</li>
+                            <li><strong>Sizes:</strong> finalSize, flatSize, trimSize</li>
+                            <li><strong>Workflow:</strong> binderyMethod, prepressWorkflow</li>
+                        </ul>
+                        <a href="jobpart-fields.html" class="btn btn-custom btn-sm w-100 mt-3">View JobPart Fields</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body section-card">
+                        <h5 class="section-title">Materials & Operations</h5>
+                        <ul class="feature-list">
+                            <li><strong>Materials:</strong> inventoryItem, paperWeight, quantities</li>
+                            <li><strong>Size Allowances:</strong> spine, face, head, foot</li>
+                            <li><strong>Press Forms:</strong> inkType, side, plateId</li>
+                            <li><strong>Finishing:</strong> finishingOperation, numUp, passes</li>
+                        </ul>
+                        <a href="materials.html" class="btn btn-custom btn-sm w-100 mt-3">View Materials</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body section-card">
+                        <h5 class="section-title">Operations & Workflows</h5>
+                        <ul class="feature-list">
+                            <li><strong>Press Operations:</strong> ink specifications, plates</li>
+                            <li><strong>Prepress:</strong> operation sequences, items</li>
+                            <li><strong>Finishing:</strong> operations, quantities, passes</li>
+                            <li><strong>Notes:</strong> department-specific documentation</li>
+                        </ul>
+                        <a href="operations.html" class="btn btn-custom btn-sm w-100 mt-3">View Operations</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body section-card">
+                        <h5 class="section-title">Reference Data</h5>
+                        <ul class="feature-list">
+                            <li><strong>Job Types:</strong> 10 options documented</li>
+                            <li><strong>Job Status:</strong> 57 status codes mapped</li>
+                            <li><strong>Binding Methods:</strong> 104 binding options</li>
+                            <li><strong>Fold Patterns:</strong> 86 folding specifications</li>
+                        </ul>
+                        <a href="reference-data.html" class="btn btn-custom btn-sm w-100 mt-3">View Reference Data</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body section-card">
+                        <h5 class="section-title">Validation & URLs</h5>
+                        <ul class="feature-list">
+                            <li><strong>API Endpoints:</strong> 8 validation URLs</li>
+                            <li><strong>Data Types:</strong> format specifications</li>
+                            <li><strong>Requirements:</strong> validation rules</li>
+                            <li><strong>Implementation:</strong> notes and guidelines</li>
+                        </ul>
+                        <a href="validation.html" class="btn btn-custom btn-sm w-100 mt-3">View Validation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- External Links Section -->
+        <div class="external-links">
+            <h5>Reference API Endpoints</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Job Status:</strong><br>
+                    <a href="http://192.168.10.251/epace/company:public/object/JobStatus/list" target="_blank">
+                        http://192.168.10.251/epace/company:public/object/JobStatus/list
+                    </a></p>
+                    
+                    <p><strong>Job Type:</strong><br>
+                    <a href="http://192.168.10.251/epace/company:public/object/JobType/list" target="_blank">
+                        http://192.168.10.251/epace/company:public/object/JobType/list
+                    </a></p>
+                    
+                    <p><strong>Binding Method:</strong><br>
+                    <a href="http://192.168.10.251/epace/company:public/object/BindingMethod/list" target="_blank">
+                        http://192.168.10.251/epace/company:public/object/BindingMethod/list
+                    </a></p>
+                    
+                    <p><strong>Prepress Workflow:</strong><br>
+                    <a href="http://192.168.10.251/epace/company:public/object/PrepressWorkflow/list" target="_blank">
+                        http://192.168.10.251/epace/company:public/object/PrepressWorkflow/list
+                    </a></p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Fold Pattern:</strong><br>
+                    <a href="http://192.168.10.251/epace/company:public/object/FoldPattern/list" target="_blank">
+                        http://192.168.10.251/epace/company:public/object/FoldPattern/list
+                    </a></p>
+                    
+                    <p><strong>Shipment Type:</strong><br>
+                    <a href="http://192.168.10.251/epace/company:public/object/ShipmentType/list" target="_blank">
+                        http://192.168.10.251/epace/company:public/object/ShipmentType/list
+                    </a></p>
+                    
+                    <p><strong>Ship Provider:</strong><br>
+                    <a href="http://192.168.10.251/epace/company:public/object/ShipProvider/list" target="_blank">
+                        http://192.168.10.251/epace/company:public/object/ShipProvider/list
+                    </a></p>
+                    
+                    <p><strong>Job Product Type:</strong><br>
+                    <a href="http://192.168.10.251/epace/company:public/object/JobProductType/list" target="_blank">
+                        http://192.168.10.251/epace/company:public/object/JobProductType/list
+                    </a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Implementation Summary -->
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title text-primary">Implementation Summary</h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Data Types & Formats</h6>
+                        <ul class="list-unstyled">
+                            <li><strong>Dates:</strong> YYYY-MM-DD format</li>
+                            <li><strong>Numbers:</strong> Numeric values with appropriate precision</li>
+                            <li><strong>Booleans:</strong> true/false or checkbox states</li>
+                            <li><strong>Selects:</strong> Option values (not display text)</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Special Considerations</h6>
+                        <ul class="list-unstyled">
+                            <li><strong>JobPart numbering:</strong> Two-digit format with leading zeros</li>
+                            <li><strong>Reference IDs:</strong> Use actual database IDs</li>
+                            <li><strong>Multi-select fields:</strong> Handle as arrays</li>
+                            <li><strong>Required fields:</strong> customer, jobType, qtyOrdered, description</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 MIS to XML Field Mapping Reference. Comprehensive documentation for XML document creation.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Global search functionality
+        document.getElementById('globalSearch').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            if (searchTerm.length > 2) {
+                // Store search term and redirect to reference data page
+                localStorage.setItem('searchTerm', searchTerm);
+                window.location.href = 'reference-data.html';
+            }
+        });
+        
+        // Handle enter key in search
+        document.getElementById('globalSearch').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = this.value.toLowerCase();
+                if (searchTerm.length > 0) {
+                    localStorage.setItem('searchTerm', searchTerm);
+                    window.location.href = 'reference-data.html';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operations & Workflows - MIS to XML Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --success-color: #198754;
+            --info-color: #0dcaf0;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+        
+        .search-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .mapping-table {
+            margin-bottom: 2rem;
+        }
+        
+        .mapping-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 12px;
+        }
+        
+        .mapping-table td {
+            padding: 12px;
+            border-top: 1px solid #dee2e6;
+            vertical-align: middle;
+        }
+        
+        .mapping-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .xml-element {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: var(--primary-color);
+            border: 1px solid #e9ecef;
+        }
+        
+        .field-type {
+            background: var(--warning-color);
+            color: #212529;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .status-found {
+            background: var(--success-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .breadcrumb {
+            background: none;
+            padding: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .breadcrumb-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item a:hover {
+            text-decoration: underline;
+        }
+        
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        .nav-pills .nav-link.active {
+            background-color: var(--primary-color);
+        }
+        
+        .nav-pills .nav-link {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            background: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">MIS to XML Reference</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="job-fields.html">Job Fields</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jobpart-fields.html">JobPart Fields</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="materials.html">Materials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="operations.html">Operations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="reference-data.html">Reference Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="validation.html">Validation</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Operations & Workflows</li>
+            </ol>
+        </nav>
+
+        <!-- Search Section -->
+        <div class="search-container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="h3 mb-3">Operations & Workflows</h1>
+                    <p class="text-muted mb-3">XML field mappings for press operations, prepress workflows, finishing operations, and contact management</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="pageSearch" placeholder="Search operation fields...">
+                        <button class="btn btn-outline-primary" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-4 text-end">
+                    <div class="btn-group" role="group">
+                        <a href="materials.html" class="btn btn-outline-secondary">Previous</a>
+                        <a href="reference-data.html" class="btn btn-outline-primary">Next: Reference Data</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Navigation -->
+        <div class="content-card">
+            <ul class="nav nav-pills" id="sectionTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#press-forms">Press Forms & Ink</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#prepress-ops">Prepress Operations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#finishing-ops">Finishing Operations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contacts-shipping">Contacts & Shipping</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#job-notes">Job Notes</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Press Forms & Ink Table -->
+        <div class="content-card" id="press-forms">
+            <h2 class="section-title">Press Forms & Ink Table</h2>
+            <p class="text-muted mb-4">Press form ink specifications extracted from the "Press Form Inks" table</p>
+            <div class="table-responsive">
+                <table class="table mapping-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%;">XML Element</th>
+                            <th style="width: 35%;">MIS Field Name</th>
+                            <th style="width: 12%;">Table Header</th>
+                            <th style="width: 8%;">Type</th>
+                            <th style="width: 30%;">Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="xml-element">&lt;inkType&gt;</span></td>
+                            <td>JobPartPressFormsInks.jobPartPressFormInkInkType</td>
+                            <td>Ink Type</td>
+                            <td><span class="field-type">select</span></td>
+                            <td>Type of ink specification</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;description&gt;</span></td>
+                            <td>JobPartPressFormsInks.jobPartPressFormInkDescription</td>
+                            <td>Description</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Detailed ink description</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;side&gt;</span></td>
+                            <td>JobPartPressFormsInks.jobPartPressFormInkSide</td>
+                            <td>Side</td>
+                            <td><span class="field-type">select</span></td>
+                            <td><strong>Printing side specification (S1/S2)</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;plateId&gt;</span></td>
+                            <td>JobPartPressFormsInks.jobPartPressFormInkPlateId</td>
+                            <td>Plate ID</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Plate identification number</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;newPlate&gt;</span></td>
+                            <td>JobPartPressFormsInks.jobPartPressFormInkNewPlate</td>
+                            <td>New Plate</td>
+                            <td><span class="field-type">checkbox</span></td>
+                            <td>Indicator for new plate requirement</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;jobMaterial&gt;</span></td>
+                            <td>JobPartPressFormsInks.jobPartPressFormInkJobMaterial</td>
+                            <td>Job Material</td>
+                            <td><span class="field-type">select</span></td>
+                            <td>Associated material for this ink</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Prepress Operations Table -->
+        <div class="content-card" id="prepress-ops">
+            <h2 class="section-title">Prepress Operations Table</h2>
+            <p class="text-muted mb-4">Prepress operation specifications extracted from the "Prepress Operations" table</p>
+            <div class="table-responsive">
+                <table class="table mapping-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%;">XML Element</th>
+                            <th style="width: 30%;">MIS Field Name</th>
+                            <th style="width: 15%;">Table Header</th>
+                            <th style="width: 8%;">Type</th>
+                            <th style="width: 32%;">Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="xml-element">&lt;sequence&gt;</span></td>
+                            <td>JobPartPrePressOp_N100C6.sequence</td>
+                            <td>Sequence</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Operation sequence number for ordering</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;prepressItem&gt;</span></td>
+                            <td>JobPartPrePressOp_N100C6.prepressItem</td>
+                            <td>Pre-press Item</td>
+                            <td><span class="field-type">select</span></td>
+                            <td>Prepress operation type selection</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;quantity&gt;</span></td>
+                            <td>JobPartPrePressOp_N100C6.quantity</td>
+                            <td>Quantity</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Operation quantity specification</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;unitLabel&gt;</span></td>
+                            <td>JobPartPrePressOp_N100C6.unitLabel</td>
+                            <td>Unit Label</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Unit of measurement specification</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;size&gt;</span></td>
+                            <td>JobPartPrePressOp_N100C6.size</td>
+                            <td>Size</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Size specification for operation</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Finishing Operations Table -->
+        <div class="content-card" id="finishing-ops">
+            <h2 class="section-title">Finishing Operations Table</h2>
+            <p class="text-muted mb-4">Finishing operation specifications extracted from the "Finishing Operations" table</p>
+            <div class="table-responsive">
+                <table class="table mapping-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%;">XML Element</th>
+                            <th style="width: 25%;">MIS Field Name</th>
+                            <th style="width: 12%;">Table Header</th>
+                            <th style="width: 8%;">Type</th>
+                            <th style="width: 40%;">Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="xml-element">&lt;sequence&gt;</span></td>
+                            <td>JobPartFinishingOp.sequence</td>
+                            <td>Seq</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Operation sequence number</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;finishingOperation&gt;</span></td>
+                            <td>JobPartFinishingOp.finishingOperation</td>
+                            <td>Finishing Operation</td>
+                            <td><span class="field-type">multiselect</span></td>
+                            <td>Finishing operation type (multiple selections possible)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;quantity&gt;</span></td>
+                            <td>JobPartFinishingOp.quantity</td>
+                            <td>Quantity</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Operation quantity specification</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;units&gt;</span></td>
+                            <td>JobPartFinishingOp.units</td>
+                            <td>Units</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Unit specification for quantity</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;unitLabel&gt;</span></td>
+                            <td>JobPartFinishingOp.unitLabel</td>
+                            <td>Unit Label</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Label for unit of measurement</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;numUp&gt;</span></td>
+                            <td>JobPartFinishingOp.numUp</td>
+                            <td>Num Up</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Number up specification for imposition</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;numPasses&gt;</span></td>
+                            <td>JobPartFinishingOp.numPasses</td>
+                            <td>Passes</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Number of passes required for operation</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;note&gt;</span></td>
+                            <td>JobPartFinishingOp.note</td>
+                            <td>Note</td>
+                            <td><span class="field-type">textarea</span></td>
+                            <td>Additional notes for the operation</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Contacts & Shipping -->
+        <div class="content-card" id="contacts-shipping">
+            <h2 class="section-title">Contacts & Shipping</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-secondary mb-3">Contact Information</h5>
+                    <div class="table-responsive">
+                        <table class="table mapping-table">
+                            <thead>
+                                <tr>
+                                    <th>XML Element</th>
+                                    <th>MIS Field Name</th>
+                                    <th>Type</th>
+                                    <th>Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="xml-element">&lt;contact&gt;</span></td>
+                                    <td>jobContact</td>
+                                    <td><span class="field-type">select</span></td>
+                                    <td>7 contacts</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="xml-element">&lt;billToContact&gt;</span></td>
+                                    <td>billToJobContact</td>
+                                    <td><span class="field-type">select</span></td>
+                                    <td>7 contacts</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="xml-element">&lt;shipToContact&gt;</span></td>
+                                    <td>shipToJobContact</td>
+                                    <td><span class="field-type">select</span></td>
+                                    <td>5 contacts</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-secondary mb-3">Shipping Information</h5>
+                    <div class="table-responsive">
+                        <table class="table mapping-table">
+                            <thead>
+                                <tr>
+                                    <th>XML Element</th>
+                                    <th>MIS Field Name</th>
+                                    <th>Type</th>
+                                    <th>Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="xml-element">&lt;shipVia&gt;</span></td>
+                                    <td>shipVia</td>
+                                    <td><span class="field-type">select</span></td>
+                                    <td>17 providers</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="xml-element">&lt;shipInNameOf&gt;</span></td>
+                                    <td>shipInNameOf</td>
+                                    <td><span class="field-type">select</span></td>
+                                    <td>5 options</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="xml-element">&lt;shipmentType&gt;</span></td>
+                                    <td>shipmentType</td>
+                                    <td><span class="field-type">select</span></td>
+                                    <td>10 types</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Job Notes -->
+        <div class="content-card" id="job-notes">
+            <h2 class="section-title">Job Notes</h2>
+            <div class="table-responsive">
+                <table class="table mapping-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">XML Element</th>
+                            <th style="width: 25%;">MIS Field Name</th>
+                            <th style="width: 10%;">Type</th>
+                            <th style="width: 15%;">Options</th>
+                            <th style="width: 30%;">Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="xml-element">&lt;department&gt;</span></td>
+                            <td>JobNotes.department</td>
+                            <td><span class="field-type">select</span></td>
+                            <td>11 departments</td>
+                            <td>Department classification for notes</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;note&gt;</span></td>
+                            <td>JobNotes.note</td>
+                            <td><span class="field-type">textarea</span></td>
+                            <td>Free text</td>
+                            <td>Note content and details</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h5 class="text-secondary mt-4 mb-3">Available Departments</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>000:</strong> Materials</li>
+                        <li class="list-group-item"><strong>100:</strong> Outside Purchases</li>
+                        <li class="list-group-item"><strong>200:</strong> Pre-Production</li>
+                        <li class="list-group-item"><strong>300:</strong> Litho Printing</li>
+                        <li class="list-group-item"><strong>400:</strong> Digital Printing</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>500:</strong> Litho Finishing</li>
+                        <li class="list-group-item"><strong>600:</strong> Digital Finishing</li>
+                        <li class="list-group-item"><strong>700:</strong> Shipping</li>
+                        <li class="list-group-item"><strong>998:</strong> Customer Service</li>
+                        <li class="list-group-item"><strong>999:</strong> Finance</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Reference Card -->
+        <div class="content-card">
+            <h3 class="text-primary mb-3">Operations Quick Reference</h3>
+            <div class="row">
+                <div class="col-md-3">
+                    <h6>Press Operations</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>inkType</strong> - Ink specification</li>
+                        <li><strong>side</strong> - Printing side (S1/S2)</li>
+                        <li><strong>plateId</strong> - Plate identification</li>
+                        <li><strong>newPlate</strong> - New plate flag</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6>Prepress Operations</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>sequence</strong> - Operation order</li>
+                        <li><strong>prepressItem</strong> - Operation type</li>
+                        <li><strong>quantity</strong> - Operation quantity</li>
+                        <li><strong>size</strong> - Size specification</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6>Finishing Operations</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>finishingOperation</strong> - Operation type</li>
+                        <li><strong>numUp</strong> - Imposition layout</li>
+                        <li><strong>numPasses</strong> - Required passes</li>
+                        <li><strong>note</strong> - Operation notes</li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h6>Contacts & Shipping</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>contact</strong> - Primary contact</li>
+                        <li><strong>shipVia</strong> - Shipping method</li>
+                        <li><strong>shipmentType</strong> - Shipment type</li>
+                        <li><strong>department</strong> - Note department</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="alert alert-info mt-3">
+                <strong>Note:</strong> Operations are typically processed in sequence order. Press operations define ink and plate requirements, 
+                while finishing operations specify post-printing processes. All operations should include proper quantity and unit specifications.
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="d-flex justify-content-between">
+            <a href="materials.html" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Previous: Materials
+            </a>
+            <a href="reference-data.html" class="btn btn-primary">
+                Next: Reference Data <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 MIS to XML Field Mapping Reference. Operations & Workflows Documentation.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Page search functionality
+        document.getElementById('pageSearch').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const tables = document.querySelectorAll('.mapping-table tbody');
+            
+            tables.forEach(tbody => {
+                const rows = tbody.querySelectorAll('tr');
+                
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    let rowMatches = false;
+                    
+                    // Clear previous highlights
+                    cells.forEach(cell => {
+                        const xmlElement = cell.querySelector('.xml-element');
+                        const fieldType = cell.querySelector('.field-type');
+                        const statusFound = cell.querySelector('.status-found');
+                        
+                        if (!xmlElement && !fieldType && !statusFound) {
+                            cell.innerHTML = cell.textContent;
+                        }
+                    });
+                    
+                    if (searchTerm.trim() === '') {
+                        row.style.display = '';
+                        return;
+                    }
+                    
+                    cells.forEach(cell => {
+                        const cellText = cell.textContent.toLowerCase();
+                        if (cellText.includes(searchTerm)) {
+                            const xmlElement = cell.querySelector('.xml-element');
+                            const fieldType = cell.querySelector('.field-type');
+                            const statusFound = cell.querySelector('.status-found');
+                            
+                            if (!xmlElement && !fieldType && !statusFound) {
+                                const regex = new RegExp(`(${searchTerm})`, 'gi');
+                                cell.innerHTML = cell.textContent.replace(regex, '<span class="highlight">$1</span>');
+                            }
+                            rowMatches = true;
+                        }
+                    });
+                    
+                    row.style.display = rowMatches ? '' : 'none';
+                });
+            });
+        });
+        
+        // Section navigation
+        document.querySelectorAll('.nav-pills .nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-pills .nav-link').forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Scroll to target section
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

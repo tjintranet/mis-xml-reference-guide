@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation & Implementation - MIS to XML Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --success-color: #198754;
+            --info-color: #0dcaf0;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+        
+        .search-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .validation-table {
+            margin-bottom: 2rem;
+        }
+        
+        .validation-table th {
+            background-color: var(--success-color);
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 12px;
+        }
+        
+        .validation-table td {
+            padding: 12px;
+            border-top: 1px solid #dee2e6;
+            vertical-align: middle;
+        }
+        
+        .validation-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .api-url {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #e9ecef;
+            word-break: break-all;
+            font-size: 0.85rem;
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+        
+        .api-url:hover {
+            background: #e9ecef;
+            color: var(--primary-color);
+        }
+        
+        .status-available {
+            background: var(--success-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .breadcrumb {
+            background: none;
+            padding: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .breadcrumb-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item a:hover {
+            text-decoration: underline;
+        }
+        
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+        }
+        
+        .implementation-note {
+            background: #e3f2fd;
+            border-left: 4px solid var(--info-color);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        
+        .validation-rule {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning-color);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        
+        .required-field {
+            background: #f8d7da;
+            border-left: 4px solid var(--danger-color);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">MIS to XML Reference</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="job-fields.html">Job Fields</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jobpart-fields.html">JobPart Fields</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="materials.html">Materials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="operations.html">Operations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="reference-data.html">Reference Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="validation.html">Validation</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Validation & Implementation</li>
+            </ol>
+        </nav>
+
+        <!-- Search Section -->
+        <div class="search-container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="h3 mb-3">Validation & Implementation</h1>
+                    <p class="text-muted mb-3">API endpoints, validation rules, and implementation guidelines for XML generation</p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <div class="btn-group" role="group">
+                        <a href="reference-data.html" class="btn btn-outline-secondary">Previous</a>
+                        <a href="index.html" class="btn btn-outline-primary">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Validation URLs -->
+        <div class="content-card">
+            <h2 class="section-title">Validation API Endpoints</h2>
+            <p class="text-muted mb-4">All reference list endpoints are confirmed accessible for data validation</p>
+            <div class="table-responsive">
+                <table class="table validation-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">XML Comment Reference</th>
+                            <th style="width: 50%;">Actual URL</th>
+                            <th style="width: 10%;">Status</th>
+                            <th style="width: 20%;">Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>JobStatus/list</strong></td>
+                            <td>
+                                <a href="http://192.168.10.251/epace/company:public/object/JobStatus/list" target="_blank" class="api-url">
+                                    http://192.168.10.251/epace/company:public/object/JobStatus/list
+                                </a>
+                            </td>
+                            <td><span class="status-available">Available</span></td>
+                            <td>Job status validation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>JobType/list</strong></td>
+                            <td>
+                                <a href="http://192.168.10.251/epace/company:public/object/JobType/list" target="_blank" class="api-url">
+                                    http://192.168.10.251/epace/company:public/object/JobType/list
+                                </a>
+                            </td>
+                            <td><span class="status-available">Available</span></td>
+                            <td>Job type validation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>BindingMethod/list</strong></td>
+                            <td>
+                                <a href="http://192.168.10.251/epace/company:public/object/BindingMethod/list" target="_blank" class="api-url">
+                                    http://192.168.10.251/epace/company:public/object/BindingMethod/list
+                                </a>
+                            </td>
+                            <td><span class="status-available">Available</span></td>
+                            <td>Binding method validation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PrepressWorkflow/list</strong></td>
+                            <td>
+                                <a href="http://192.168.10.251/epace/company:public/object/PrepressWorkflow/list" target="_blank" class="api-url">
+                                    http://192.168.10.251/epace/company:public/object/PrepressWorkflow/list
+                                </a>
+                            </td>
+                            <td><span class="status-available">Available</span></td>
+                            <td>Prepress workflow validation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>FoldPattern/list</strong></td>
+                            <td>
+                                <a href="http://192.168.10.251/epace/company:public/object/FoldPattern/list" target="_blank" class="api-url">
+                                    http://192.168.10.251/epace/company:public/object/FoldPattern/list
+                                </a>
+                            </td>
+                            <td><span class="status-available">Available</span></td>
+                            <td>Fold pattern validation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ShipmentType/list</strong></td>
+                            <td>
+                                <a href="http://192.168.10.251/epace/company:public/object/ShipmentType/list" target="_blank" class="api-url">
+                                    http://192.168.10.251/epace/company:public/object/ShipmentType/list
+                                </a>
+                            </td>
+                            <td><span class="status-available">Available</span></td>
+                            <td>Shipment type validation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ShipProvider/list</strong></td>
+                            <td>
+                                <a href="http://192.168.10.251/epace/company:public/object/ShipProvider/list" target="_blank" class="api-url">
+                                    http://192.168.10.251/epace/company:public/object/ShipProvider/list
+                                </a>
+                            </td>
+                            <td><span class="status-available">Available</span></td>
+                            <td>Ship provider validation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>JobProductType/list</strong></td>
+                            <td>
+                                <a href="http://192.168.10.251/epace/company:public/object/JobProductType/list" target="_blank" class="api-url">
+                                    http://192.168.10.251/epace/company:public/object/JobProductType/list
+                                </a>
+                            </td>
+                            <td><span class="status-available">Available</span></td>
+                            <td>Product type validation</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Data Types and Formats -->
+        <div class="content-card">
+            <h2 class="section-title">Data Types & Formats</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-secondary mb-3">Supported Data Types</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Dates</strong>
+                            <span class="text-muted">YYYY-MM-DD format</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Numbers</strong>
+                            <span class="text-muted">Numeric values with appropriate precision</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Booleans</strong>
+                            <span class="text-muted">true/false or checkbox states</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Selects</strong>
+                            <span class="text-muted">Option values (not display text)</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Text</strong>
+                            <span class="text-muted">Free-form text fields</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-secondary mb-3">Special Considerations</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>JobPart numbering:</strong> Two-digit format with leading zeros (01, 02, etc.)
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Reference IDs:</strong> Use actual database IDs for relationships
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Multi-select fields:</strong> Handle as arrays or comma-separated values
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Table data:</strong> Extract row-by-row for multiple entries
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Validation Requirements -->
+        <div class="content-card">
+            <h2 class="section-title">Validation Requirements</h2>
+            
+            <div class="required-field">
+                <h6 class="text-danger mb-2">Required Fields</h6>
+                <p class="mb-0">The following fields must be present and have valid values:</p>
+                <ul class="mt-2 mb-0">
+                    <li><strong>customer</strong> - Customer selection from available options</li>
+                    <li><strong>jobType</strong> - Job type classification (must exist in JobType/list)</li>
+                    <li><strong>qtyOrdered</strong> - Quantity ordered (numeric value greater than 0)</li>
+                    <li><strong>description</strong> - Job description (non-empty text)</li>
+                </ul>
+            </div>
+
+            <div class="validation-rule">
+                <h6 class="text-warning mb-2">Date Validation</h6>
+                <p class="mb-0">All date fields must follow the YYYY-MM-DD format and be valid dates. Common date fields include:</p>
+                <ul class="mt-2 mb-0">
+                    <li><code>promiseDate</code>, <code>earliestStartDate</code></li>
+                </ul>
+            </div>
+
+            <div class="validation-rule">
+                <h6 class="text-warning mb-2">Reference Validation</h6>
+                <p class="mb-0">All reference fields must contain IDs that exist in the corresponding reference lists:</p>
+                <ul class="mt-2 mb-0">
+                    <li>Verify <code>adminStatus</code> exists in JobStatus/list</li>
+                    <li>Verify <code>jobType</code> exists in JobType/list</li>
+                    <li>Verify <code>U_BindingMethod</code> exists in BindingMethod/list</li>
+                    <li>Verify <code>foldPattern</code> exists in FoldPattern/list</li>
+                    <li>And so on for all reference fields</li>
+                </ul>
+            </div>
+
+            <div class="validation-rule">
+                <h6 class="text-warning mb-2">Numeric Validation</h6>
+                <p class="mb-0">Ensure numeric fields contain valid numbers where expected:</p>
+                <ul class="mt-2 mb-0">
+                    <li>Quantities must be positive numbers</li>
+                    <li>Page counts must be integers</li>
+                    <li>Dimensions should be positive decimal numbers</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Implementation Examples -->
+        <div class="content-card">
+            <h2 class="section-title">Implementation Examples</h2>
+            
+            <h5 class="text-secondary mb-3">Basic XML Structure</h5>
+            <div class="code-block">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;job&gt;
+    &lt;customer&gt;AMBPUB&lt;/customer&gt;
+    &lt;description&gt;Henry's Roses Book Printing&lt;/description&gt;
+    &lt;jobType&gt;22&lt;/jobType&gt;
+    &lt;promiseDate&gt;2024-12-15&lt;/promiseDate&gt;
+    &lt;adminStatus&gt;O&lt;/adminStatus&gt;
+    
+    &lt;jobPart&gt;
+        &lt;jobPart&gt;01&lt;/jobPart&gt;
+        &lt;qtyOrdered&gt;1000&lt;/qtyOrdered&gt;
+        &lt;pages&gt;32&lt;/pages&gt;
+        &lt;foldPattern&gt;51&lt;/foldPattern&gt;
+        &lt;colorsS1&gt;4&lt;/colorsS1&gt;
+        &lt;colorsS2&gt;4&lt;/colorsS2&gt;
+    &lt;/jobPart&gt;
+    
+    &lt;jobMaterial&gt;
+        &lt;sequence&gt;01&lt;/sequence&gt;
+        &lt;inventoryItem&gt;PAPER-120GSM&lt;/inventoryItem&gt;
+        &lt;paperWeight&gt;120&lt;/paperWeight&gt;
+        &lt;plannedQuantity&gt;1500&lt;/plannedQuantity&gt;
+    &lt;/jobMaterial&gt;
+&lt;/job&gt;
+            </div>
+
+            <h5 class="text-secondary mb-3 mt-4">Validation Workflow</h5>
+            <div class="implementation-note">
+                <h6 class="text-info mb-2">Recommended Validation Process</h6>
+                <ol class="mb-0">
+                    <li><strong>Pre-validation:</strong> Check that all required fields are present</li>
+                    <li><strong>Data type validation:</strong> Verify dates, numbers, and text formats</li>
+                    <li><strong>Reference validation:</strong> Call API endpoints to verify IDs exist</li>
+                    <li><strong>Business logic validation:</strong> Check field relationships and constraints</li>
+                    <li><strong>Post-validation:</strong> Generate final XML with validated data</li>
+                </ol>
+            </div>
+
+            <h5 class="text-secondary mb-3 mt-4">Error Handling Example</h5>
+            <div class="code-block">
+// Example validation function
+function validateJobData(jobData) {
+    const errors = [];
+    
+    // Required field validation
+    if (!jobData.customer) errors.push("Customer is required");
+    if (!jobData.description) errors.push("Description is required");
+    if (!jobData.jobType) errors.push("Job type is required");
+    
+    // Date format validation
+    if (jobData.promiseDate && !isValidDate(jobData.promiseDate)) {
+        errors.push("Promise date must be in YYYY-MM-DD format");
+    }
+    
+    // Numeric validation
+    if (jobData.qtyOrdered && (!isNumeric(jobData.qtyOrdered) || jobData.qtyOrdered <= 0)) {
+        errors.push("Quantity ordered must be a positive number");
+    }
+    
+    return errors;
+}
+
+function isValidDate(dateString) {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    return regex.test(dateString) && !isNaN(Date.parse(dateString));
+}
+
+function isNumeric(value) {
+    return !isNaN(value) && !isNaN(parseFloat(value));
+}
+            </div>
+        </div>
+
+        <!-- Implementation Notes 
+        <div class="content-card">
+            <h2 class="section-title">Implementation Guidelines</h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Field Mapping Strategy</h6>
+                    <ul class="list-unstyled">
+                        <li>• Extract form field values using documented field names</li>
+                        <li>• Map MIS field names to corresponding XML elements</li>
+                        <li>• Handle table data by iterating through rows</li>
+                        <li>• Preserve data relationships between parent and child elements</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h6>Quality Assurance</h6>
+                    <ul class="list-unstyled">
+                        <li>• Always validate against reference data before XML generation</li>
+                        <li>• Test with various job types and configurations</li>
+                        <li>• Verify table extraction works with multiple rows</li>
+                        <li>• Check that all field mappings are correctly implemented</li>
+                    </ul>
+                </div>
+            </div> 
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h6>Performance Considerations</h6>
+                    <ul class="list-unstyled">
+                        <li>• Cache reference data to minimize API calls</li>
+                        <li>• Validate in batches when processing multiple jobs</li>
+                        <li>• Use efficient DOM traversal for form field extraction</li>
+                        <li>• Implement proper error logging and recovery</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h6>Maintenance</h6>
+                    <ul class="list-unstyled">
+                        <li>• Regularly update reference data caches</li>
+                        <li>• Monitor API endpoint availability</li>
+                        <li>• Update field mappings when MIS forms change</li>
+                        <li>• Maintain documentation as system evolves</li>
+                    </ul>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- Summary 
+        <div class="content-card">
+            <h2 class="section-title">Implementation Summary</h2>
+            
+            <div class="alert alert-success">
+                <h5 class="alert-heading">Mapping Completion: 98%</h5>
+                <p>This comprehensive mapping covers virtually all aspects of the job data structure, from basic job information through complex production specifications, materials, and operations. The automated scraper can now extract and generate XML for complete job records with high fidelity to the original MIS data structure.</p>
+                <hr>
+                <div class="row">
+                    <div class="col-md-3">
+                        <strong>Total Mapped Elements:</strong><br>
+                        80+ XML elements across 10+ categories
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Field Discovery Success:</strong><br>
+                        223 form fields identified and categorized
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Table Structures:</strong><br>
+                        7 major table structures completely mapped
+                    </div>
+                    <div class="col-md-3">
+                        <strong>Reference Lists:</strong><br>
+                        8 validation endpoints with complete option sets
+                    </div>
+                </div>
+            </div>
+
+            <h5 class="text-secondary mb-3">Complete Reference Coverage</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Job Types</strong>
+                            <span class="badge bg-success rounded-pill">3 options</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Job Status</strong>
+                            <span class="badge bg-success rounded-pill">57 codes</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Binding Methods</strong>
+                            <span class="badge bg-success rounded-pill">104 methods</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Fold Patterns</strong>
+                            <span class="badge bg-success rounded-pill">86 patterns</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Prepress Workflows</strong>
+                            <span class="badge bg-success rounded-pill">14 workflows</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Job Product Types</strong>
+                            <span class="badge bg-success rounded-pill">108 types</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Ship Providers</strong>
+                            <span class="badge bg-success rounded-pill">17 providers</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Shipment Types</strong>
+                            <span class="badge bg-success rounded-pill">10 types</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- Navigation -->
+        <div class="d-flex justify-content-between">
+            <a href="reference-data.html" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Previous: Reference Data
+            </a>
+            <a href="index.html" class="btn btn-primary">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 MIS to XML Field Mapping Reference. Complete implementation guide for XML document generation.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Copy API URL to clipboard functionality
+        document.querySelectorAll('.api-url').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Copy to clipboard
+                navigator.clipboard.writeText(this.textContent).then(() => {
+                    // Show temporary feedback
+                    const originalText = this.textContent;
+                    this.textContent = 'Copied!';
+                    this.style.background = '#d1ecf1';
+                    
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                        this.style.background = '#f8f9fa';
+                    }, 1000);
+                }).catch(() => {
+                    // Fallback: open in new tab
+                    window.open(this.href, '_blank');
+                });
+            });
+        });
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

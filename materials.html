@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materials & Specifications - MIS to XML Reference</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --success-color: #198754;
+            --info-color: #0dcaf0;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+        
+        .search-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-color);
+        }
+        
+        .mapping-table {
+            margin-bottom: 2rem;
+        }
+        
+        .mapping-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 12px;
+        }
+        
+        .mapping-table td {
+            padding: 12px;
+            border-top: 1px solid #dee2e6;
+            vertical-align: middle;
+        }
+        
+        .mapping-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .xml-element {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: var(--primary-color);
+            border: 1px solid #e9ecef;
+        }
+        
+        .field-type {
+            background: var(--warning-color);
+            color: #212529;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .status-found {
+            background: var(--success-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .breadcrumb {
+            background: none;
+            padding: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .breadcrumb-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .breadcrumb-item a:hover {
+            text-decoration: underline;
+        }
+        
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        .nav-pills .nav-link.active {
+            background-color: var(--primary-color);
+        }
+        
+        .nav-pills .nav-link {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            background: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">MIS to XML Reference</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="job-fields.html">Job Fields</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="jobpart-fields.html">JobPart Fields</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="materials.html">Materials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="operations.html">Operations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="reference-data.html">Reference Data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="validation.html">Validation</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Materials & Specifications</li>
+            </ol>
+        </nav>
+
+        <!-- Search Section -->
+        <div class="search-container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="h3 mb-3">Materials & Specifications</h1>
+                    <p class="text-muted mb-3">XML field mappings for material specifications, inventory items, and size allowances</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="pageSearch" placeholder="Search material fields...">
+                        <button class="btn btn-outline-primary" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-4 text-end">
+                    <div class="btn-group" role="group">
+                        <a href="jobpart-fields.html" class="btn btn-outline-secondary">Previous</a>
+                        <a href="operations.html" class="btn btn-outline-primary">Next: Operations</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Navigation -->
+        <div class="content-card">
+            <ul class="nav nav-pills" id="sectionTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#material-specs">JobMaterial Table Fields</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#size-allowances">Size Allowances Table</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- JobMaterial Table Fields -->
+        <div class="content-card" id="material-specs">
+            <h2 class="section-title">JobMaterial Table Fields</h2>
+            <p class="text-muted mb-4">Material specifications extracted from the "Materials Info" table</p>
+            <div class="table-responsive">
+                <table class="table mapping-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 18%;">XML Element</th>
+                            <th style="width: 25%;">MIS Field Name</th>
+                            <th style="width: 15%;">Table Header</th>
+                            <th style="width: 8%;">Type</th>
+                            <th style="width: 34%;">Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="xml-element">&lt;sequence&gt;</span></td>
+                            <td>JobMaterial_N1010A.sequence</td>
+                            <td>Sequence</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Material sequence number for ordering</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;inventoryItem&gt;</span></td>
+                            <td>JobMaterial_N1010A.inventoryItem</td>
+                            <td>Inventory Item</td>
+                            <td><span class="field-type">select</span></td>
+                            <td><strong>Inventory item selection from available stock</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;stockNumber&gt;</span></td>
+                            <td>Material stock reference</td>
+                            <td>Stock Number</td>
+                            <td><span class="field-type">text</span></td>
+                            <td><strong>Stock number reference for identification</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;description&gt;</span></td>
+                            <td>Material description</td>
+                            <td>Description</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Detailed material description</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;buySize&gt;</span></td>
+                            <td>Material buy size</td>
+                            <td>Buy Size</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Purchase size specification for procurement</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;runSize&gt;</span></td>
+                            <td>Material run size</td>
+                            <td>Run Size</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Production run size for manufacturing</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;paperWeight&gt;</span></td>
+                            <td>Material weight</td>
+                            <td>Weight</td>
+                            <td><span class="field-type">text</span></td>
+                            <td><strong>Paper weight in GSM (grams per square meter)</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;thickness&gt;</span></td>
+                            <td>Material thickness</td>
+                            <td>Thickness</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Material thickness measurement</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;plannedQuantity&gt;</span></td>
+                            <td>Material planned qty</td>
+                            <td>Planned Qty</td>
+                            <td><span class="field-type">text</span></td>
+                            <td><strong>Planned quantity for production</strong></td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;orderedQuantity&gt;</span></td>
+                            <td>Material ordered qty</td>
+                            <td>Ordered Qty</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Quantity ordered from supplier</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;pulledQuantity&gt;</span></td>
+                            <td>Material pulled qty</td>
+                            <td>Pulled Qty</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Quantity pulled from inventory for production</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Size Allowances Table -->
+        <div class="content-card" id="size-allowances">
+            <h2 class="section-title">Size Allowances Table</h2>
+            <p class="text-muted mb-4">Size allowance specifications extracted from the "Size Allowances" table</p>
+            <div class="table-responsive">
+                <table class="table mapping-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">XML Element</th>
+                            <th style="width: 30%;">MIS Field Name</th>
+                            <th style="width: 15%;">Table Header</th>
+                            <th style="width: 10%;">Type</th>
+                            <th style="width: 25%;">Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="xml-element">&lt;sizeAllowanceType&gt;</span></td>
+                            <td>SizeAllowance.sizeAllowanceType</td>
+                            <td>Size Allowance Type</td>
+                            <td><span class="field-type">select</span></td>
+                            <td>Type of size allowance specification</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;spine&gt;</span></td>
+                            <td>SizeAllowance.spine</td>
+                            <td>Spine</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Spine allowance measurement</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;face&gt;</span></td>
+                            <td>SizeAllowance.face</td>
+                            <td>Face</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Face allowance measurement</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;head&gt;</span></td>
+                            <td>SizeAllowance.head</td>
+                            <td>Head</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Head allowance measurement</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;foot&gt;</span></td>
+                            <td>SizeAllowance.foot</td>
+                            <td>Foot</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Foot allowance measurement</td>
+                        </tr>
+                        <tr>
+                            <td><span class="xml-element">&lt;spineWidth&gt;</span></td>
+                            <td>SizeAllowance.spineWidth</td>
+                            <td>Spine Width</td>
+                            <td><span class="field-type">text</span></td>
+                            <td>Spine width specification</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Quick Reference Card -->
+        <div class="content-card">
+            <h3 class="text-primary mb-3">Quick Reference</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Key Material Fields</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>inventoryItem</strong> - Primary material selection</li>
+                        <li><strong>paperWeight</strong> - GSM specification</li>
+                        <li><strong>plannedQuantity</strong> - Required amount</li>
+                        <li><strong>stockNumber</strong> - Material identification</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h6>Size Allowances</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>spine</strong> - Spine edge allowance</li>
+                        <li><strong>face</strong> - Face edge allowance</li>
+                        <li><strong>head/foot</strong> - Top/bottom allowances</li>
+                        <li><strong>spineWidth</strong> - Spine width measurement</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <h6>Quantity Management</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>plannedQuantity</strong> - Production planning</li>
+                        <li><strong>orderedQuantity</strong> - Procurement tracking</li>
+                        <li><strong>pulledQuantity</strong> - Inventory allocation</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h6>Size Specifications</h6>
+                    <ul class="list-unstyled">
+                        <li><strong>buySize</strong> - Purchase dimensions</li>
+                        <li><strong>runSize</strong> - Production dimensions</li>
+                        <li><strong>thickness</strong> - Material thickness</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="alert alert-info mt-3">
+                <strong>Note:</strong> Material fields are extracted from table structures in the MIS system. 
+                The sequence field determines the order of materials in production. Size allowances are critical 
+                for binding operations and finishing processes.
+            </div>
+        </div>
+
+        <!-- Material Workflow Card -->
+        <div class="content-card">
+            <h3 class="text-primary mb-3">Material Workflow</h3>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card border-primary h-100">
+                        <div class="card-header bg-primary text-white">
+                            <h6 class="mb-0">1. Planning Phase</h6>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                <li>• Select inventory item</li>
+                                <li>• Define planned quantity</li>
+                                <li>• Specify material requirements</li>
+                                <li>• Set size allowances</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-warning h-100">
+                        <div class="card-header bg-warning text-dark">
+                            <h6 class="mb-0">2. Procurement</h6>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                <li>• Order required quantities</li>
+                                <li>• Track stock numbers</li>
+                                <li>• Verify buy sizes</li>
+                                <li>• Update ordered quantities</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-success h-100">
+                        <div class="card-header bg-success text-white">
+                            <h6 class="mb-0">3. Production</h6>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                <li>• Pull materials from inventory</li>
+                                <li>• Apply size allowances</li>
+                                <li>• Track pulled quantities</li>
+                                <li>• Monitor usage and waste</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Structure Examples -->
+        <div class="content-card">
+            <h3 class="text-primary mb-3">Table Structure Examples</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>JobMaterial Table Example</h6>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Seq</th>
+                                    <th>Inventory Item</th>
+                                    <th>Weight</th>
+                                    <th>Planned Qty</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>01</td>
+                                    <td>Paper - 120gsm Silk</td>
+                                    <td>120</td>
+                                    <td>1000</td>
+                                </tr>
+                                <tr>
+                                    <td>02</td>
+                                    <td>Cover - 250gsm Matt</td>
+                                    <td>250</td>
+                                    <td>500</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h6>Size Allowances Table Example</h6>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Spine</th>
+                                    <th>Face</th>
+                                    <th>Head</th>
+                                    <th>Foot</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Trim</td>
+                                    <td>3mm</td>
+                                    <td>3mm</td>
+                                    <td>3mm</td>
+                                    <td>3mm</td>
+                                </tr>
+                                <tr>
+                                    <td>Bleed</td>
+                                    <td>5mm</td>
+                                    <td>5mm</td>
+                                    <td>5mm</td>
+                                    <td>5mm</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="d-flex justify-content-between">
+            <a href="jobpart-fields.html" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Previous: JobPart Fields
+            </a>
+            <a href="operations.html" class="btn btn-primary">
+                Next: Operations <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 MIS to XML Field Mapping Reference. Materials & Specifications Documentation.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Page search functionality
+        document.getElementById('pageSearch').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const tables = document.querySelectorAll('.mapping-table tbody');
+            
+            tables.forEach(tbody => {
+                const rows = tbody.querySelectorAll('tr');
+                
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    let rowMatches = false;
+                    
+                    // Clear previous highlights
+                    cells.forEach(cell => {
+                        const xmlElement = cell.querySelector('.xml-element');
+                        const fieldType = cell.querySelector('.field-type');
+                        const statusFound = cell.querySelector('.status-found');
+                        
+                        if (!xmlElement && !fieldType && !statusFound) {
+                            cell.innerHTML = cell.textContent;
+                        }
+                    });
+                    
+                    if (searchTerm.trim() === '') {
+                        row.style.display = '';
+                        return;
+                    }
+                    
+                    cells.forEach(cell => {
+                        const cellText = cell.textContent.toLowerCase();
+                        if (cellText.includes(searchTerm)) {
+                            const xmlElement = cell.querySelector('.xml-element');
+                            const fieldType = cell.querySelector('.field-type');
+                            const statusFound = cell.querySelector('.status-found');
+                            
+                            if (!xmlElement && !fieldType && !statusFound) {
+                                const regex = new RegExp(`(${searchTerm})`, 'gi');
+                                cell.innerHTML = cell.textContent.replace(regex, '<span class="highlight">$1</span>');
+                            }
+                            rowMatches = true;
+                        }
+                    });
+                    
+                    row.style.display = rowMatches ? '' : 'none';
+                });
+            });
+        });
+        
+        // Section navigation
+        document.querySelectorAll('.nav-pills .nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-pills .nav-link').forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Scroll to target section
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
