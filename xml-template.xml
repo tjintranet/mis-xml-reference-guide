@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<import>
+	<Jobs>
+		<!-- "refId" used to link data which are not in parent-child relation -->
+		<Job refId="Job1">
+			<!-- REQUIRED FIELDS -->
+			<!-- REQUIRED: Customer code (e.g., AMBPUB, CLALTD) -->
+			<customer></customer>
+			<!-- REQUIRED: Primary job description/title -->
+			<description></description>
+			<!-- REQUIRED: Fixed Field - Job type ID from JobType/list (typically "1" for Printing Job) -->
+			<jobType>1</jobType>
+			
+			<!-- ESSENTIAL FIELDS -->
+			<!-- YYYY-MM-DD: Job delivery date -->
+			<promiseDate></promiseDate>
+			<!-- Job status from JobStatus/list (O=Open, P=In Production, etc.) -->
+			<adminStatus>O</adminStatus>
+			
+			<!-- OPTIONAL JOB FIELDS -->
+			<!-- Extended job description and special instructions -->
+			<description2></description2>
+			<!-- Sub-category of job type (27 options available) -->
+			<subJobType></subJobType>
+			<!-- Customer reference/PO number -->
+			<reference></reference>
+			<!-- YYYY-MM-DD: Earliest production start date -->
+			<earliestStartDate></earliestStartDate>
+			
+			<!-- CUSTOM FIELDS (if applicable) -->
+			<!-- Customer purchase order number -->
+			<poNum></poNum>
+			<!-- Primary contact first name -->
+			<contactFirstName></contactFirstName>
+			<!-- Primary contact last name -->
+			<contactLastName></contactLastName>
+			<!-- Binding method ID from BindingMethod/list -->
+			<U_BindingMethod></U_BindingMethod>
+			<!-- Processing staff assignment -->
+			<U_ProcessedBy></U_ProcessedBy>
+			<!-- Job weight specification -->
+			<U_weight></U_weight>
+			
+			<!-- CUSTOM ISBN FIELDS (for book printing) -->
+			<!-- ISBN for cased book binding -->
+			<U_CasedISBN></U_CasedISBN>
+			<!-- ISBN for limp book binding -->
+			<U_LimpISBN></U_LimpISBN>
+			<!-- Batch reference identifier -->
+			<U_BatchRef></U_BatchRef>
+			<!-- Edition information -->
+			<U_Edition></U_Edition>
+			<!-- Head trim specification -->
+			<U_HeadTrim></U_HeadTrim>
+			<!-- Number of blank pages -->
+			<U_Blanks></U_Blanks>
+			<!-- Preliminary pages content -->
+			<U_Prelims></U_Prelims>
+			<!-- Count of preliminary pages -->
+			<U_PrelimPages></U_PrelimPages>
+
+			<JobParts>
+				<!-- JOBPART 01: COVER/OUTER PART -->
+				<JobPart>
+					<!-- CORE JOBPART FIELDS -->
+					<!-- REQUIRED: Two digits with leading zero -->
+					<jobPart>01</jobPart>
+					<!-- REQUIRED: Product assignment reference -->
+					<jobProduct id="1000"/>
+					<!-- Production status (O=Open, P=In Production, etc.) -->
+					<productionStatus>O</productionStatus>
+					<!-- REQUIRED: Quantity ordered (positive integer) -->
+					<qtyOrdered></qtyOrdered>
+					<!-- EXAMPLE: "Cover Customer Supplied" or "4pp Cover 4/4" -->
+					<description></description>
+					
+					<!-- PRODUCTION SPECIFICATIONS -->
+					<!-- EXAMPLE: "CovCust" (Customer Cover) or "04CAN4UC" (4pp Cover Cased) -->
+					<jobProductType></jobProductType>
+					<!-- EXAMPLE: 1 (typically 1 for covers) -->
+					<numSigs></numSigs>
+					<!-- EXAMPLE: 4 (typical for covers) -->
+					<pages></pages>
+					<!-- EXAMPLE: 19 (Cover fold) or 11 (Half Fold) from FoldPattern/list -->
+					<foldPattern></foldPattern>
+					<!-- Description of fold pattern -->
+					<foldPatternDesc></foldPatternDesc>
+					
+					<!-- SIZE SPECIFICATIONS -->
+					<!-- EXAMPLE: 126.0 (final width in mm) -->
+					<finalSizeW></finalSizeW>
+					<!-- EXAMPLE: 198.0 (final height in mm) -->
+					<finalSizeH></finalSizeH>
+					<!-- Flat size before folding -->
+					<flatSize></flatSize>
+					<!-- Trim size for cutting -->
+					<trimSize></trimSize>
+					
+					<!-- COLOR SPECIFICATIONS -->
+					<!-- EXAMPLE: 4 (CMYK colors for side 1) -->
+					<colorsS1></colorsS1>
+					<!-- EXAMPLE: 0 or 4 (colors for side 2) -->
+					<colorsS2></colorsS2>
+					<!-- EXAMPLE: 4 (total colors used) -->
+					<colorsTotal></colorsTotal>
+					
+					<!-- WORKFLOW SPECIFICATIONS -->
+					<!-- EXAMPLE: 5200 (Cover binding method) from BindingMethod/list -->
+					<binderyMethod></binderyMethod>
+					<!-- EXAMPLE: 5011 (Cover workflow) from PrepressWorkflow/list -->
+					<prepressWorkflow></prepressWorkflow>
+					<!-- Last activity code (452 options) -->
+					<lastActCode></lastActCode>
+
+					<!-- MATERIALS SECTION -->
+					<JobMaterials>
+						<JobMaterial>
+							<!-- Material sequence number -->
+							<sequence>01</sequence>
+							<!-- REQUIRED: Will be calculated -->
+							<plannedQuantity>0</plannedQuantity>
+							
+							<!-- COVER MATERIAL (use either inventoryItem OR paperWeight + stockNumber) -->
+							<!-- EXAMPLE: "COVER-250GSM-SILK" -->
+							<inventoryItem></inventoryItem>
+							<!-- OR -->
+							<!-- EXAMPLE: 5283 (250gsm cover stock) -->
+							<paperWeight></paperWeight>
+							<!-- EXAMPLE: "BC1-100.0" -->
+							<stockNumber></stockNumber>
+							
+							<!-- MATERIAL PROPERTIES -->
+							<!-- Boolean: Is this a paper material -->
+							<paper>true</paper>
+							<!-- Boolean: From estimating system -->
+							<fromEstimating>true</fromEstimating>
+							<!-- EXAMPLE: "250gsm Silk Cover Stock" -->
+							<description></description>
+							<!-- Purchase size specification -->
+							<buySize></buySize>
+							<!-- Production run size -->
+							<runSize></runSize>
+							<!-- Material thickness -->
+							<thickness></thickness>
+							<!-- Quantity ordered from supplier -->
+							<orderedQuantity></orderedQuantity>
+							<!-- Quantity pulled from inventory -->
+							<pulledQuantity></pulledQuantity>
+							
+							<!-- SIZE SPECIFICATIONS (needed if prepressWorkflow = "finishing only") -->
+							<!-- EXAMPLE: 9999.0 -->
+							<buySizeLength></buySizeLength>
+							<!-- EXAMPLE: 9999.0 -->
+							<buySizeWidth></buySizeWidth>
+							<!-- EXAMPLE: 2 (grain direction) -->
+							<grainDirection></grainDirection>
+						</JobMaterial>
+					</JobMaterials>
+
+					<!-- SIZE ALLOWANCES (if applicable) -->
+					<SizeAllowances>
+						<SizeAllowance>
+							<!-- Type of size allowance -->
+							<sizeAllowanceType></sizeAllowanceType>
+							<!-- Spine allowance measurement -->
+							<spine></spine>
+							<!-- Face allowance measurement -->
+							<face></face>
+							<!-- Head allowance measurement -->
+							<head></head>
+							<!-- Foot allowance measurement -->
+							<foot></foot>
+							<!-- Spine width specification -->
+							<spineWidth></spineWidth>
+						</SizeAllowance>
+					</SizeAllowances>
+
+					<!-- PRESS FORMS & INKS (if applicable) -->
+					<PressFormInks>
+						<PressFormInk>
+							<!-- Type of ink from available options -->
+							<inkType></inkType>
+							<!-- Ink description -->
+							<description></description>
+							<!-- Printing side (S1/S2) -->
+							<side></side>
+							<!-- Plate identification number -->
+							<plateId></plateId>
+							<!-- Boolean: New plate required (true/false) -->
+							<newPlate></newPlate>
+							<!-- Associated material reference -->
+							<jobMaterial></jobMaterial>
+						</PressFormInk>
+					</PressFormInks>
+
+					<!-- PREPRESS OPERATIONS (if applicable) -->
+					<PrePressOperations>
+						<PrePressOperation>
+							<!-- Operation sequence number -->
+							<sequence></sequence>
+							<!-- Prepress operation type -->
+							<prepressItem></prepressItem>
+							<!-- Operation quantity -->
+							<quantity></quantity>
+							<!-- Unit of measurement -->
+							<unitLabel></unitLabel>
+							<!-- Size specification -->
+							<size></size>
+						</PrePressOperation>
+					</PrePressOperations>
+
+					<!-- FINISHING OPERATIONS (if applicable) -->
+					<FinishingOperations>
+						<FinishingOperation>
+							<!-- Operation sequence number -->
+							<sequence></sequence>
+							<!-- Finishing operation type (multiselect possible) -->
+							<finishingOperation></finishingOperation>
+							<!-- Operation quantity -->
+							<quantity></quantity>
+							<!-- Unit specification -->
+							<units></units>
+							<!-- Unit label -->
+							<unitLabel></unitLabel>
+							<!-- Number up for imposition -->
+							<numUp></numUp>
+							<!-- Number of passes required -->
+							<numPasses></numPasses>
+							<!-- Additional operation notes -->
+							<note></note>
+						</FinishingOperation>
+					</FinishingOperations>
+				</JobPart>
+				
+				<!-- JOBPART 02: TEXT/INNER PART -->
+				<JobPart>
+					<!-- CORE JOBPART FIELDS -->
+					<!-- REQUIRED: Sequential part number -->
+					<jobPart>02</jobPart>
+					<!-- REQUIRED: Same product reference -->
+					<jobProduct id="1000"/>
+					<!-- Production status -->
+					<productionStatus>O</productionStatus>
+					<!-- REQUIRED: Same quantity as part 01 -->
+					<qtyOrdered></qtyOrdered>
+					<!-- EXAMPLE: "8pp Text Inkjet Limp 1/1" or "32pp Text Block" -->
+					<description></description>
+					
+					<!-- PRODUCTION SPECIFICATIONS -->
+					<!-- EXAMPLE: "8PAGEIL" (8pp Inkjet Limp) or "32SIG4UC" (32pp Signature Cased) -->
+					<jobProductType></jobProductType>
+					<!-- EXAMPLE: 42 (number of signatures) or 1 -->
+					<numSigs></numSigs>
+					<!-- EXAMPLE: 8, 16, 32, etc. (text page count) -->
+					<pages></pages>
+					<!-- EXAMPLE: 11 (Half Fold) or 41 (16pp Signature) from FoldPattern/list -->
+					<foldPattern></foldPattern>
+					<!-- Description of fold pattern -->
+					<foldPatternDesc></foldPatternDesc>
+					
+					<!-- SIZE SPECIFICATIONS -->
+					<!-- EXAMPLE: 198.0 (may be different orientation from cover) -->
+					<finalSizeW></finalSizeW>
+					<!-- EXAMPLE: 126.0 (may be different orientation from cover) -->
+					<finalSizeH></finalSizeH>
+					<!-- Flat size before folding -->
+					<flatSize></flatSize>
+					<!-- Trim size for cutting -->
+					<trimSize></trimSize>
+					
+					<!-- COLOR SPECIFICATIONS -->
+					<!-- EXAMPLE: 1 (black only) or 4 (CMYK) -->
+					<colorsS1></colorsS1>
+					<!-- EXAMPLE: 1 (black only) or 4 (CMYK) -->
+					<colorsS2></colorsS2>
+					<!-- EXAMPLE: 1 (black) or 4 (CMYK) -->
+					<colorsTotal></colorsTotal>
+					
+					<!-- WORKFLOW SPECIFICATIONS -->
+					<!-- EXAMPLE: 5261 (Text binding method) from BindingMethod/list -->
+					<binderyMethod></binderyMethod>
+					<!-- EXAMPLE: 5015 (Text workflow) from PrepressWorkflow/list -->
+					<prepressWorkflow></prepressWorkflow>
+					<!-- Last activity code -->
+					<lastActCode></lastActCode>
+
+					<!-- MATERIALS SECTION -->
+					<JobMaterials>
+						<JobMaterial>
+							<!-- Material sequence number -->
+							<sequence>01</sequence>
+							<!-- REQUIRED: Will be calculated -->
+							<plannedQuantity>0</plannedQuantity>
+							
+							<!-- TEXT MATERIAL (typically different from cover) -->
+							<!-- EXAMPLE: "DCLAY01" (text paper stock) -->
+							<inventoryItem></inventoryItem>
+							<!-- OR -->
+							<!-- EXAMPLE: Different weight for text pages -->
+							<paperWeight></paperWeight>
+							<!-- Stock number for text paper -->
+							<stockNumber></stockNumber>
+							
+							<!-- MATERIAL PROPERTIES -->
+							<!-- Boolean: Is this a paper material -->
+							<paper>true</paper>
+							<!-- Boolean: From estimating system -->
+							<fromEstimating>true</fromEstimating>
+							<!-- EXAMPLE: "90gsm Offset Text Paper" -->
+							<description></description>
+							<!-- Purchase size specification -->
+							<buySize></buySize>
+							<!-- Production run size -->
+							<runSize></runSize>
+							<!-- Material thickness -->
+							<thickness></thickness>
+							<!-- Quantity ordered from supplier -->
+							<orderedQuantity></orderedQuantity>
+							<!-- Quantity pulled from inventory -->
+							<pulledQuantity></pulledQuantity>
+							
+							<!-- SIZE SPECIFICATIONS -->
+							<!-- Buy size length -->
+							<buySizeLength></buySizeLength>
+							<!-- Buy size width -->
+							<buySizeWidth></buySizeWidth>
+							<!-- Grain direction -->
+							<grainDirection></grainDirection>
+						</JobMaterial>
+					</JobMaterials>
+
+					<!-- SIZE ALLOWANCES (if applicable) -->
+					<SizeAllowances>
+						<SizeAllowance>
+							<!-- Type of size allowance -->
+							<sizeAllowanceType></sizeAllowanceType>
+							<!-- Spine allowance measurement -->
+							<spine></spine>
+							<!-- Face allowance measurement -->
+							<face></face>
+							<!-- Head allowance measurement -->
+							<head></head>
+							<!-- Foot allowance measurement -->
+							<foot></foot>
+							<!-- Spine width specification -->
+							<spineWidth></spineWidth>
+						</SizeAllowance>
+					</SizeAllowances>
+
+					<!-- PRESS FORMS & INKS (if applicable) -->
+					<PressFormInks>
+						<PressFormInk>
+							<!-- Type of ink (may be different from cover) -->
+							<inkType></inkType>
+							<!-- Ink description -->
+							<description></description>
+							<!-- Printing side (S1/S2) -->
+							<side></side>
+							<!-- Plate identification number -->
+							<plateId></plateId>
+							<!-- Boolean: New plate required -->
+							<newPlate></newPlate>
+							<!-- Associated material reference -->
+							<jobMaterial></jobMaterial>
+						</PressFormInk>
+					</PressFormInks>
+
+					<!-- PREPRESS OPERATIONS (if applicable) -->
+					<PrePressOperations>
+						<PrePressOperation>
+							<!-- Operation sequence number -->
+							<sequence></sequence>
+							<!-- Prepress operation type -->
+							<prepressItem></prepressItem>
+							<!-- Operation quantity -->
+							<quantity></quantity>
+							<!-- Unit of measurement -->
+							<unitLabel></unitLabel>
+							<!-- Size specification -->
+							<size></size>
+						</PrePressOperation>
+					</PrePressOperations>
+
+					<!-- FINISHING OPERATIONS (if applicable) -->
+					<FinishingOperations>
+						<FinishingOperation>
+							<!-- Operation sequence number -->
+							<sequence></sequence>
+							<!-- Finishing operation type -->
+							<finishingOperation></finishingOperation>
+							<!-- Operation quantity -->
+							<quantity></quantity>
+							<!-- Unit specification -->
+							<units></units>
+							<!-- Unit label -->
+							<unitLabel></unitLabel>
+							<!-- Number up for imposition -->
+							<numUp></numUp>
+							<!-- Number of passes required -->
+							<numPasses></numPasses>
+							<!-- Additional operation notes -->
+							<note></note>
+						</FinishingOperation>
+					</FinishingOperations>
+				</JobPart>
+				
+				<!-- ADDITIONAL JOBPARTS (if needed beyond minimum of 2) -->
+				<!-- Copy JobPart structure above for additional parts, incrementing jobPart number to 03, 04, etc. -->
+			</JobParts>
+
+			<!-- SHIPMENT INFORMATION -->
+			<JobShipments>
+				<JobShipment>
+					<!-- YYYY-MM-DD: Shipment promise date -->
+					<promiseDate></promiseDate>
+					<!-- Shipment type ID from ShipmentType/list (10 options) -->
+					<shipmentType></shipmentType>
+					<!-- Ship provider ID from ShipProvider/list (17 providers) -->
+					<shipVia></shipVia>
+					<!-- Ship in name of (5 options) -->
+					<shipInNameOf></shipInNameOf>
+					
+					<!-- SHIPPING ADDRESS - Option A: Reference to JobContact -->
+					<jobContact id="jobContact-1"/>
+					
+					<!-- SHIPPING ADDRESS - Option B: Direct address entry (commented out) -->
+					<!--
+					<name></name>
+					<address1></address1>
+					<address2></address2>
+					<address3></address3>
+					<city></city>
+					<zip></zip>
+					<country></country>
+					<email></email>
+					<contactFirstName></contactFirstName>
+					<contactLastName></contactLastName>
+					-->
+
+					<!-- CARTON/PACKAGING INFORMATION -->
+					<Cartons>
+						<Carton>
+							<addDefaultContent>false</addDefaultContent>
+							<!-- Number of cartons/packages -->
+							<count></count>
+							<CartonContents>
+								<CartonContent>
+									<!-- Quantity per carton -->
+									<quantity></quantity>
+									<!-- Reference to job/product/part/material -->
+									<job id="Job1"/>
+								</CartonContent>
+							</CartonContents>
+						</Carton>
+						<!-- Additional cartons can be added here -->
+					</Cartons>
+				</JobShipment>
+			</JobShipments>
+
+			<!-- JOB NOTES (if applicable) -->
+			<JobNotes>
+				<JobNote>
+					<!-- Department ID (000=Materials, 100=Outside Purchases, 200=Pre-Production, etc.) -->
+					<department></department>
+					<!-- Note content and details -->
+					<note></note>
+				</JobNote>
+			</JobNotes>
+		</Job>
+		
+		<!-- ADDITIONAL JOBS -->
+		<!-- Copy the Job structure above for additional jobs, changing refId -->
+	</Jobs>
+
+	<!-- JOB PRODUCTS SECTION -->
+	<JobProducts>
+		<JobProduct refId="1000">
+			<job id="Job1"/>
+			<!-- Product sequence number -->
+			<sequence>1</sequence>
+			<!-- Product description -->
+			<description></description>
+		</JobProduct>
+		<!-- Additional job products can be added here -->
+	</JobProducts>
+	
+	<!-- JOB CONTACTS SECTION -->
+	<!-- Alternative: Use defaults from Customer record instead of defining contacts -->
+	<JobContacts> 
+		<JobContact refId="jobContact-1">
+			<job id="Job1"/>
+			<!-- Contact ID for primary job contact (7 contacts available) -->
+			<contact></contact>
+		</JobContact>
+		<JobContact refId="jobContact-2">
+			<job id="Job1"/>
+			<!-- Contact ID for billing contact (7 contacts available) -->
+			<contact></contact>
+		</JobContact>
+		<JobContact refId="jobContact-3">
+			<job id="Job1"/>
+			<!-- Contact ID for shipping contact (5 contacts available) -->
+			<contact></contact>
+		</JobContact>
+	</JobContacts>
+</import>
+
+<!--
+====================================
+VALIDATION REFERENCE URLS:
+====================================
+
+Use these URLs to validate field values:
+
+• JobStatus/list: http://192.168.10.251/epace/company:public/object/JobStatus/list
+• JobType/list: http://192.168.10.251/epace/company:public/object/JobType/list  
+• BindingMethod/list: http://192.168.10.251/epace/company:public/object/BindingMethod/list
+• PrepressWorkflow/list: http://192.168.10.251/epace/company:public/object/PrepressWorkflow/list
+• FoldPattern/list: http://192.168.10.251/epace/company:public/object/FoldPattern/list
+• ShipmentType/list: http://192.168.10.251/epace/company:public/object/ShipmentType/list
+• ShipProvider/list: http://192.168.10.251/epace/company:public/object/ShipProvider/list
+• JobProductType/list: http://192.168.10.251/epace/company:public/object/JobProductType/list
+• InventoryItem/list: http://192.168.10.251/epace/company:public/object/InventoryItem/list
+• Contact List: http://192.168.10.251/epace/company:public/object/Contact/list
+
+====================================
+REQUIRED FIELDS SUMMARY:f
+====================================
+
+• customer - Customer selection
+• description - Job description  
+• jobType - Job type (typically "1")
+• jobPart - Part number (01, 02, etc.)
+• qtyOrdered - Quantity ordered
+• plannedQuantity - Material quantity (can be 0 for calculation)
+
+====================================
+DATA FORMAT REQUIREMENTS:
+====================================
+
+• Dates: YYYY-MM-DD format
+• Numbers: Decimal format for dimensions, integers for counts
+• Booleans: true/false
+• JobPart numbering: Two digits with leading zeros (01, 02, 03)
+• Reference IDs: Use actual database IDs from validation URLs
+
+====================================
+COMMON FIELD VALUES:
+====================================
+
+• jobType: "1" (Printing Job)
+• adminStatus: "O" (Open), "P" (In Production), "C" (Complete)
+• productionStatus: "O" (Open), "P" (In Production) 
+• paper: true (for paper materials)
+• fromEstimating: true (from estimating system)
+• addDefaultContent: false (for cartons)
+
+====================================
+PACE CONNECT URL:
+====================================
+
+http://192.168.10.251/epace/company:public/object/PaceConnect/detail/5120
+
+-->

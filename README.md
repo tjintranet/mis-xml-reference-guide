@@ -1,10 +1,5 @@
 # MIS to XML Field Mapping Reference Documentation
 
-[![Documentation Status](https://img.shields.io/badge/docs-98%25%20complete-brightgreen)](./index.html)
-[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3.0-purple)](https://getbootstrap.com/)
-[![Field Mappings](https://img.shields.io/badge/Field%20Mappings-125+-blue)](#field-mappings)
-[![Reference Data](https://img.shields.io/badge/Reference%20Records-400+-orange)](#reference-data)
-
 ## 📋 Overview
 
 Comprehensive documentation for creating XML documents from MIS (Management Information System) form fields. This project provides complete field mappings, validation rules, and reference data for automated XML generation from printing industry MIS systems.
